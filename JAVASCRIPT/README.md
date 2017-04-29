@@ -1,2 +1,4 @@
-# design-pattern
-Repository to share knowlegment between developers. Teste
+# Design Pattern - JavaScript
+Repository to share knowlegment between developers about design patterns
+
+* Builder
