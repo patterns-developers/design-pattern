@@ -21,6 +21,17 @@ class Hamburger {
 }
 
 // Abstract Builder
+class AbstractHamburgerBuilder {
+    constructor() {
+        if (new.target === Abstract) {
+            throw new TypeError("Cannot construct Abstract instances directly");
+        }
+    }
+    prepareBread();
+    prepareMain();
+    prepareComplement();
+}
+
 
 // ConcreteBuilder
 
