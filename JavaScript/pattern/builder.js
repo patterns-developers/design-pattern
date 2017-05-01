@@ -1,19 +1,35 @@
 'use strict'
 
-class Retangulo {
-    constructor(altura, largura) {
-      this.altura = altura; this.largura = largura;
+// Product
+class Hamburger {
+  
+    set bread(bread) {
+        this._bread = bread;
     }
 
-    get area() {
-        return this.calculaArea()
+    set main(main) {
+        this._main = main;
     }
 
-    calculaArea() {
-        return this.altura * this.largura;
+    set complement(complement) {
+        this._complement = complement;
+    }
+
+    description() {
+        return `${this._bread}, ${this._main}, ${this._complement}`
     }
 }
 
-const quadrado = new Retangulo(10, 10);
+// Abstract Builder
 
-console.log(quadrado.area);
+// ConcreteBuilder
+
+// ConcreteBuilder
+
+// Director
+
+var hamburger = new Hamburger();
+hamburger.bread = 'White Bread'
+hamburger.main = 'White Bread'
+hamburger.complement = 'White Bread'
+console.log(hamburger.description());
