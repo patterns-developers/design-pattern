@@ -5,5 +5,25 @@
   <body>
     <div id="content"></div>
     <script src="pattern/builder.js"></script>
+    <script>
+      window.onload = function(){
+        var meetHamburger = new MeatHamburgerBuilder();
+        var barbecueHamburger = new KBarbecueHamburgerBuilder();
+        var establishment = new Establishment();
+
+        // First request
+        establishment.hamburgerBuilder = meetHamburger;
+        establishment.constructHamburger();
+        var firstHamburger = `First request: ${establishment.hamburger}` 
+
+        // Second request
+        establishment.hamburgerBuilder = barbecueHamburger;
+        establishment.constructHamburger();
+        var secondHamburger = `Second request: ${establishment.hamburger}` 
+
+        // Show on the screen
+        document.getElementById('content').innerHTML = `${firstHamburger} <br /> ${secondHamburger}`
+      };
+    </script>
   </body>
 </html>

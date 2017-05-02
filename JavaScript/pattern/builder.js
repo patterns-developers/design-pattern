@@ -23,24 +23,60 @@ class Hamburger {
 // Abstract Builder
 class AbstractHamburgerBuilder {
     constructor() {
-        if (new.target === Abstract) {
+        this._hamburger = new Hamburger();
+        if (new.target === AbstractHamburgerBuilder) {
             throw new TypeError("Cannot construct Abstract instances directly");
         }
     }
-    prepareBread();
-    prepareMain();
-    prepareComplement();
+    prepareBread(){}
+    prepareMain(){}
+    prepareComplement(){}
 }
 
+// ConcreteBuilder
+class MeatHamburgerBuilder extends AbstractHamburgerBuilder{
+    prepareBread() {
+        this._hamburger.bread = "hamburger bread";
+    }
+
+    prepareMain() {
+        this._hamburger.main = "beef";
+    }
+
+    prepareComplement() {
+        this._hamburger.complement = "cheese, mayonnaise, lettuce and tomato";
+    }
+}
 
 // ConcreteBuilder
+class KBarbecueHamburgerBuilder extends AbstractHamburgerBuilder{
+    prepareBread() {
+        this._hamburger.bread = "french bread";
+    }
 
-// ConcreteBuilder
+    prepareMain() {
+        this._hamburger.main = "beef sliced";
+    }
+
+    prepareComplement() {
+        this._hamburger.complement = "cheese, mayonnaise, pea, lettuce and tomato";
+    }
+}
 
 // Director
+class Establishment{
+    set hamburgerBuilder(hamburgerBuilder) {
+        this._hamburgerBuilder = hamburgerBuilder;
+    }
 
-var hamburger = new Hamburger();
-hamburger.bread = 'White Bread'
-hamburger.main = 'White Bread'
-hamburger.complement = 'White Bread'
-console.log(hamburger.description());
+    get hamburger() {
+        return this._hamburgerBuilder._hamburger.description();
+    }
+
+    constructHamburger() {
+        this._hamburgerBuilder.prepareBread();
+        this._hamburgerBuilder.prepareMain();
+        this._hamburgerBuilder.prepareComplement();
+    }
+}
+
