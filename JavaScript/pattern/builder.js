@@ -25,7 +25,7 @@ class AbstractHamburgerBuilder {
     constructor() {
         this._hamburger = new Hamburger();
         if (new.target === AbstractHamburgerBuilder) {
-            throw new TypeError("Cannot construct Abstract instances directly");
+            throw new TypeError("Cannot construct AbstractHamburgerBuilder instances directly");
         }
     }
     prepareBread(){}
