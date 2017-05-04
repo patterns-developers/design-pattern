@@ -2,11 +2,11 @@ package org.com.designpattern.beans;
 
 import java.util.List;
 
-import org.com.designpattern.builder.NFBuildable;
+import org.com.designpattern.builder.NFBeanBuildable;
 import org.com.designpattern.core.AbstractTemplateBuilder;
 import org.junit.Test;
 
-public class NFTest {
+public class NFFluentBuilderTest {
 
     @Test
     public void fluentInterface() {
@@ -18,17 +18,31 @@ public class NFTest {
             .withEmitente(emitente)
             .withDestinatario(destinatario);
     }
+
+    @Test
+    public void fluetBuilder() {
+        Identificacao identificacao = null;
+        Emitente emitente = null;
+        Destinatario destinatario = null;
+        List<ImpostoServivo> iss = null;
+        ComplexInformation complexInformation = null;
+        NF nfse = new NFeServicoBuilder(identificacao, emitente, destinatario, iss).build();
+        System.err.println(nfse);
+        NF nfce = new NFeConsumidorBuilder(identificacao, emitente, destinatario, complexInformation).build();
+        System.err.println(nfce);
+
+    }
 }
 
 abstract class AnstractNFBuilder
     extends
     AbstractTemplateBuilder<NF>
     implements
-    NFBuildable {
+    NFBeanBuildable {
 
     /**
      *
-     * This NF it's required three infomration:
+     * This NF it's required three information:
      *
      * @param identificacao
      * @param emitente
@@ -80,6 +94,14 @@ class NFeServicoBuilder
         // COMPLEX DEFINITION
         // ...
         throw new IllegalArgumentException();
+    }
+
+    public NFeServicoBuilder withInternationalService(
+        final Object internationalService) {
+        // COMPLEX DEFINITION
+        // ...
+        getBean().setOpicional03(null);
+        return this;
     }
 }
 
