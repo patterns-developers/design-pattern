@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Strategy - Design Patter</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <header class="container-fluid">
+        <h1>Design Patter Strategy with JavaScript</h1>
+    </header>
+    <div class="container-fluid">
+        <p>
+            In computer programming, the strategy pattern (also known as the policy pattern) is a behavioral software design pattern
+            that enables selecting an algorithm at runtime. The strategy pattern
+            <ul>
+                <li>defines a family of algorithms,</li>
+                <li>encapsulates each algorithm, and </li>
+                <li>makes the algorithms interchangeable within that family. </li>
+            </ul>
+        </p>
+        <h2>UML class diagram</h2>
+        <img src="images/strategy_design_pattern_UML.jpg" width="600" />
+        <h3>Code</h3>
+        <pre>
+'use strict'
+
+// Abstract Class
+class AbstractStaff {
+    constructor() {
+        if (new.target === AbstractStaff) {
+            throw new TypeError("Cannot construct AbstractStaff instances directly");
+        }
+    }
+    salary(workedHours) { }
+    benefits() { }
+}
+
+// Concrete class
+class Developer extends AbstractStaff {
+    salary(workedHours) {
+        return 30 * workedHours;
+    }
+    benefits() {
+        return 3
+    }
+}
+
+class Intern extends AbstractStaff {
+    salary(workedHours) {
+        return 5 * workedHours;
+    }
+    benefits() {
+        return 1
+    }
+}
+
+class Manager extends AbstractStaff {
+    salary(workedHours) {
+        return 50 * workedHours;
+    }
+    benefits() {
+        return 5
+    }
+}
+
+// Context Class
+class InfoStaff {
+    constructor(staff) {
+        this.staff = staff
+    }
+
+    salary(workedHours) {
+        return this.staff.salary(workedHours);
+    }
+
+    benefits() {
+        return this.staff.benefits();
+    }
+}
+        </pre>
+
+        <h3>Result</h3>
+        <div id="content"></div>
+    </div>
+
+    <footer></footer>
+    <script src="strategy.js"></script>
+    <script>
+        window.onload = function () {
+            // Concrete class
+            var manager = new Manager();
+            var dev = new Developer();
+            var intern = new Intern();
+
+            // Context Class
+            var inf1 = new InfoStaff(manager);
+            var aboutManager = `Manager salary in a month is ${inf1.salary(200)} with ${inf1.benefits()} benefits`;
+
+            var inf2 = new InfoStaff(dev);
+            var aboutDev = `Dev salary in a month is ${inf2.salary(200)} with ${inf2.benefits()} benefits`;
+
+            var inf3 = new InfoStaff(intern);
+            var aboutIntern = `Intern salary in a month is ${inf3.salary(200)} with ${inf3.benefits()} benefits`;
+
+            // Show on the screen
+            document.getElementById('content').innerHTML = `${aboutManager} <br /> ${aboutDev} <br /> ${aboutIntern}`
+        };
+    </script>
+</body>
+
+</html>
