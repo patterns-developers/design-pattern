@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Template Method - Design Patter</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <header class="container-fluid">
+        <h1>Design Patter Template Method with JavaScript</h1>
+    </header>
+    <div class="container-fluid">
+        <p>
+            In software engineering, the template method pattern is a behavioral design pattern 
+            that defines the program skeleton of an algorithm in an operation, deferring some steps 
+            to subclasses. It lets one redefine certain steps of an algorithm without changing 
+            the algorithm's structure. <br />
+            <span style="font-weight: bolder">What problems can the Template Method design pattern solve?</span>
+            <ul>
+                <li>The invariant parts of a behavior should be implemented only once so that subclasses can implement the variant parts.</li>
+                <li>Subclasses should redefine only certain parts of a behavior without changing the other parts.</li>
+            </ul>
+            <a href="https://en.wikipedia.org/wiki/Template_method_pattern" target="_blank" />Wikipedia reference</a>
+        </p>
+        <h2>UML class diagram</h2>
+        <img src="images/Template_Method_Design_Pattern_UML.jpg" width="600" />
+        <h3>Code</h3>
+        <pre>
+'use strict'
+
+// Abstract Class
+class AbstractFileAccess {
+    constructor() {
+        if (new.target === AbstractFileAccess) {
+            throw new TypeError("Cannot construct AbstractFileAccess instances directly");
+        }
+    }
+    open() { };
+    read() { return "" };
+    close() { };
+    execute() {
+        this.open();
+        var msg = this.read();
+        this.close();
+        return msg;
+    }
+}
+
+// Concrete class
+class CsvAccess extends AbstractFileAccess {
+    open() {
+        console.log("Open file CSV");
+    }
+
+    close() {
+        console.log("Close file CSV");
+    }
+
+    read() {
+        return "CSV info...";
+    }
+}
+
+// Concrete class
+class TxtAccess extends AbstractFileAccess {
+    constructor() {
+        super();
+    }
+
+    open() {
+        console.log("Open file Txt");
+    }
+
+    close() {
+        console.log("Close file Txt");
+    }
+
+    read() {
+        return "Txt info...";
+    }
+}        
+
+let txt = new TxtAccess();
+let infoTxt = txt.execute();
+
+var csv = new CsvAccess();
+var csvTxt = csv.execute();
+        </pre>
+
+        <h3>Result</h3>
+        <div id="content"></div>
+    </div>
+
+    <footer></footer>
+    <script src="templatemethod.js"></script>
+    <script>
+        window.onload = function () {
+            let txt = new TxtAccess();
+            let infoTxt = txt.execute();
+
+            var csv = new CsvAccess();
+            var csvTxt = csv.execute();
+
+            // Show on the screen
+            document.getElementById('content').innerHTML = `${infoTxt} <br /> ${csvTxt}`
+        };
+    </script>
+</body>
+
+</html>
